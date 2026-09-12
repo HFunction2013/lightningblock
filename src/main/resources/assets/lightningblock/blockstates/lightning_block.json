@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "lightningblock:block/lightning_block" }
+  }
+}
