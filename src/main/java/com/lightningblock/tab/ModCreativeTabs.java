@@ -2,6 +2,7 @@ package com.lightningblock.tab;
 
 import com.lightningblock.LightningBlockMod;
 import com.lightningblock.block.ModBlocks;
+import com.lightningblock.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,7 +19,11 @@ public class ModCreativeTabs {
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(ModBlocks.LIGHTNING_BLOCK.get()))
                     .title(Component.translatable("itemGroup.lightningblock"))
-                    .displayItems((params, output) -> output.accept(ModBlocks.LIGHTNING_BLOCK.get()))
+                    .displayItems((params, output) -> {
+                        output.accept(ModBlocks.LIGHTNING_BLOCK.get());
+                        output.accept(ModBlocks.LIGHTNING_ORE.get());
+                        output.accept(ModItems.LIGHTNING_CORE.get());
+                    })
                     .build());
 
     public static void register(IEventBus bus) {

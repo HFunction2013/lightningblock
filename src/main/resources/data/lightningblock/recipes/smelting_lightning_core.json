@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "lightningblock:lightning_ore"
+  },
+  "result": "lightningblock:lightning_core",
+  "experience": 1.0,
+  "cookingTime": 12000
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "A": { "tag": "lightningblock:obsidian_variants" },
+    "C": { "item": "lightningblock:lightning_core" }
+  },
+  "result": {
+    "item": "lightningblock:lightning_block",
+    "count": 1
+  }
+}

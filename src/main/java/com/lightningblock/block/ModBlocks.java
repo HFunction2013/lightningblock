@@ -23,6 +23,14 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .requiresCorrectToolForDrops()));
 
+    // Lightning Ore — identical stats to obsidian, can frame nether portals
+    public static final RegistryObject<Block> LIGHTNING_ORE = BLOCKS.register("lightning_ore",
+            () -> new LightningOre(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(50.0F, 1200.0F)
+                    .sound(SoundType.STONE)
+                    .requiresCorrectToolForDrops()));
+
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);
     }

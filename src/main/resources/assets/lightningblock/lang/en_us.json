@@ -1,5 +1,7 @@
 {
   "block.lightningblock.lightning_block": "Lightning Block",
+  "block.lightningblock.lightning_ore": "Lightning Ore",
+  "item.lightningblock.lightning_core": "Lightning Core",
   "container.lightningblock.lightning_block": "Lightning Block",
   "container.lightningblock.filter": "Filter",
   "itemGroup.lightningblock": "Lightning Block"
