@@ -14,10 +14,7 @@ a **Lightning Portal**, and a **Lightning Core** item.
 
 #### Obtaining
 - **Creative:** available in the "Lightning Block" creative tab
-- **Survival:**
-  1. A **charged (lightning) Creeper** explodes next to a Dragon Egg, or
-  2. **Lightning strikes** a Dragon Egg
-  - In both cases the Dragon Egg converts into a Lightning Block.
+- **Survival:** **Lightning strikes** a Dragon Egg — the Dragon Egg converts into a Lightning Block.
 
 #### GUI (right-click the block)
 Three input slots + a filter text box:
