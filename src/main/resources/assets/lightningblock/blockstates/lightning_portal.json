@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "lightningblock:block/lightning_portal_ns"
+    },
+    "axis=z": {
+      "model": "lightningblock:block/lightning_portal_ew"
+    }
+  }
+}

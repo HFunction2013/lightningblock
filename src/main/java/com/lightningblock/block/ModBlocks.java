@@ -23,13 +23,22 @@ public class ModBlocks {
                     .sound(SoundType.STONE)
                     .requiresCorrectToolForDrops()));
 
-    // Lightning Ore — identical stats to obsidian, can frame nether portals
+    // Lightning Ore — identical stats to obsidian, can frame lightning portals
     public static final RegistryObject<Block> LIGHTNING_ORE = BLOCKS.register("lightning_ore",
             () -> new LightningOre(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLACK)
                     .strength(50.0F, 1200.0F)
                     .sound(SoundType.STONE)
                     .requiresCorrectToolForDrops()));
+
+    // Lightning Portal — looks like a Nether Portal but accepts obsidian + lightning ore frames
+    public static final RegistryObject<Block> LIGHTNING_PORTAL = BLOCKS.register("lightning_portal",
+            () -> new LightningPortalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_PURPLE)
+                    .noCollission()
+                    .strength(-1.0F)
+                    .sound(SoundType.GLASS)
+                    .lightLevel(state -> 11)));
 
     public static void register(IEventBus bus) {
         BLOCKS.register(bus);

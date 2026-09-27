@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lightningblock.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PortalForterMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
