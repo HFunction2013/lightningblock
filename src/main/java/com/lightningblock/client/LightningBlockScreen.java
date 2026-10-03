@@ -1,5 +1,7 @@
 package com.lightningblock.client;
 
+import javax.annotation.Nonnull;
+
 import com.lightningblock.block.entity.LightningBlockEntity;
 import com.lightningblock.menu.LightningBlockMenu;
 import com.lightningblock.network.FilterUpdatePacket;
@@ -38,14 +40,14 @@ public class LightningBlockScreen extends AbstractContainerScreen<LightningBlock
     }
 
     @Override
-    public void resize(Minecraft minecraft, int width, int height) {
+    public void resize(@Nonnull Minecraft minecraft, int width, int height) {
         String value = this.filterBox.getValue();
         super.resize(minecraft, width, height);
         this.filterBox.setValue(value);
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partial) {
+    public void render(@Nonnull GuiGraphics graphics, int mouseX, int mouseY, float partial) {
         // Sync filter from BE when the user is not actively editing
         if (!this.filterBox.isFocused()) {
             String current = menu.getBlockEntity().getFilter();
@@ -60,7 +62,7 @@ public class LightningBlockScreen extends AbstractContainerScreen<LightningBlock
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partial, int mouseX, int mouseY) {
+    protected void renderBg(@Nonnull GuiGraphics graphics, float partial, int mouseX, int mouseY) {
         // Dark panel background
         graphics.fill(this.leftPos, this.topPos,
                 this.leftPos + this.imageWidth, this.topPos + this.imageHeight, 0xFF000000);
@@ -75,7 +77,7 @@ public class LightningBlockScreen extends AbstractContainerScreen<LightningBlock
     }
 
     @Override
-    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+    protected void renderLabels(@Nonnull GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(this.font, this.title, 10, 6, 0xFFFFFF, false);
 
         // Slot labels
@@ -107,6 +109,7 @@ public class LightningBlockScreen extends AbstractContainerScreen<LightningBlock
         if (key == 256) {
             saveFilter();
             assert this.minecraft != null;
+            assert this.minecraft.player != null;
             this.minecraft.player.closeContainer();
             return true;
         }

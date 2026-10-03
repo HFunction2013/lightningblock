@@ -245,7 +245,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
         super.onPlace(state, level, pos, oldState, moved);
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             serverLevel.getPoiManager().add(pos,
-                    ForgeRegistries.POI_TYPES.getHolder(PoiTypes.NETHER_PORTAL).orElseThrow(() -> 
+                    ForgeRegistries.POI_TYPES.getHolder(PoiTypes.NETHER_PORTAL).orElseThrow(() ->
                     new IllegalStateException("NETHER_PORTAL POI doesn't exist!")
                 ));
         }

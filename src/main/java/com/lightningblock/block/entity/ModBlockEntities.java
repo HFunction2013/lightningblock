@@ -9,14 +9,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockEntities {
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, LightningBlockMod.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister
+            .create(ForgeRegistries.BLOCK_ENTITY_TYPES, LightningBlockMod.MOD_ID);
 
     @SuppressWarnings("null")
-public static final RegistryObject<BlockEntityType<LightningBlockEntity>> LIGHTNING_BLOCK_ENTITY =
-            BLOCK_ENTITIES.register("lightning_block",
+    public static final RegistryObject<BlockEntityType<LightningBlockEntity>> LIGHTNING_BLOCK_ENTITY = BLOCK_ENTITIES
+            .register("lightning_block",
                     () -> BlockEntityType.Builder.of(LightningBlockEntity::new,
-                                    ModBlocks.LIGHTNING_BLOCK.get())
+                            ModBlocks.LIGHTNING_BLOCK.get())
                             .build(null));
 
     public static void register(IEventBus bus) {
