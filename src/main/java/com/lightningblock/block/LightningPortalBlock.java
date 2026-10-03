@@ -2,7 +2,6 @@ package com.lightningblock.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.Level;
@@ -240,6 +239,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
      * Register a NETHER_PORTAL point-of-interest so that vanilla PortalForter
      * can find this portal when looking for a teleport destination.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void onPlace(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState oldState, boolean moved) {
         super.onPlace(state, level, pos, oldState, moved);
@@ -254,6 +254,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
     /**
      * Remove the POI when the portal block is destroyed.
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moved) {
         super.onRemove(state, level, pos, newState, moved);

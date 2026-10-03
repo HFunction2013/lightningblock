@@ -12,7 +12,8 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, LightningBlockMod.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<LightningBlockEntity>> LIGHTNING_BLOCK_ENTITY =
+    @SuppressWarnings("null")
+public static final RegistryObject<BlockEntityType<LightningBlockEntity>> LIGHTNING_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("lightning_block",
                     () -> BlockEntityType.Builder.of(LightningBlockEntity::new,
                                     ModBlocks.LIGHTNING_BLOCK.get())

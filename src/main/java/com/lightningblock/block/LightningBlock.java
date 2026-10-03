@@ -69,6 +69,7 @@ public class LightningBlock extends BaseEntityBlock {
      * (Normally inputs are consumed immediately, but this guards edge cases and
      * blocks that were loaded with items before consumption logic ran.)
      */
+    @SuppressWarnings("deprecation")
     @Override
     public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moved) {
         if (!state.is(newState.getBlock())) {
