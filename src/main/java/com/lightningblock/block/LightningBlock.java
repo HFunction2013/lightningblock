@@ -21,6 +21,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.Nullable;
 
 public class LightningBlock extends BaseEntityBlock {
@@ -31,27 +34,27 @@ public class LightningBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
         return new LightningBlockEntity(pos, state);
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public RenderShape getRenderShape(@Nonnull BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
-                                                                  BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level level, @Nonnull BlockState state,
+                                                                  @Nonnull BlockEntityType<T> type) {
         return level.isClientSide ? null
                 : createTickerHelper(type, ModBlockEntities.LIGHTNING_BLOCK_ENTITY.get(),
                         LightningBlockEntity::tick);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player,
-                                 InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull Player player,
+                                 @Nonnull InteractionHand hand, @Nonnull BlockHitResult hit) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof LightningBlockEntity be) {
             NetworkHooks.openScreen((ServerPlayer) player, new SimpleMenuProvider(
                     (id, inv, p) -> new com.lightningblock.menu.LightningBlockMenu(id, inv, be),
@@ -67,7 +70,7 @@ public class LightningBlock extends BaseEntityBlock {
      * blocks that were loaded with items before consumption logic ran.)
      */
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moved) {
         if (!state.is(newState.getBlock())) {
             if (level.getBlockEntity(pos) instanceof LightningBlockEntity be) {
                 IItemHandler handler = be.getItemHandler();

@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+
 /**
  * Lightning Portal — looks and behaves exactly like a vanilla Nether Portal,
  * but accepts both Obsidian and Lightning Ore as valid frame blocks.
@@ -238,7 +240,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
      * can find this portal when looking for a teleport destination.
      */
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean moved) {
+    public void onPlace(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState oldState, boolean moved) {
         super.onPlace(state, level, pos, oldState, moved);
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             serverLevel.getPoiManager().add(pos,
@@ -250,7 +252,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
      * Remove the POI when the portal block is destroyed.
      */
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
+    public void onRemove(@Nonnull BlockState state, @Nonnull Level level, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean moved) {
         super.onRemove(state, level, pos, newState, moved);
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             serverLevel.getPoiManager().remove(pos);
@@ -263,8 +265,8 @@ public class LightningPortalBlock extends NetherPortalBlock {
      * own validator that accepts both obsidian and lightning ore.
      */
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
-                                   LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(@Nonnull BlockState state, Direction direction, @Nonnull BlockState neighborState,
+    @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos neighborPos) {
         Direction.Axis neighborAxis = direction.getAxis();
         Direction.Axis portalAxis = state.getValue(AXIS);
 

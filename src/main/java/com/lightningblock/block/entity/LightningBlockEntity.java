@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -33,8 +32,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class LightningBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -258,7 +258,7 @@ public class LightningBlockEntity extends BlockEntity implements MenuProvider {
 
     // ---- NBT ----
     @Override
-    protected void saveAdditional(CompoundTag tag) {
+    protected void saveAdditional(@Nonnull CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("remaining", remaining);
         tag.putInt("freq", freq);
@@ -270,7 +270,7 @@ public class LightningBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    public void load(CompoundTag tag) {
+    public void load(@Nonnull CompoundTag tag) {
         super.load(tag);
         remaining = tag.getInt("remaining");
         freq = tag.getInt("freq");
@@ -330,7 +330,7 @@ public class LightningBlockEntity extends BlockEntity implements MenuProvider {
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+    public AbstractContainerMenu createMenu(int id, @Nonnull Inventory inv, @Nonnull Player player) {
         return new LightningBlockMenu(id, inv, this);
     }
 }

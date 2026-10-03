@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class LightningBlockMenu extends AbstractContainerMenu {
 
@@ -71,7 +72,7 @@ public class LightningBlockMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public @NotNull ItemStack quickMoveStack(Player player, int index) {
+    public @NotNull ItemStack quickMoveStack(@Nonnull Player player, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasItem()) {
@@ -110,7 +111,7 @@ public class LightningBlockMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@Nonnull Player player) {
         BlockPos pos = blockEntity.getBlockPos();
         return player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64.0;
     }

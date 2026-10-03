@@ -2,12 +2,10 @@ package com.lightningblock.event;
 
 import com.lightningblock.LightningBlockMod;
 import com.lightningblock.item.ModItems;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
