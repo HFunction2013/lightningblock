@@ -1,0 +1,9 @@
+spotless {
+    java {
+        target 'src/**/*.java'
+        targetExclude 'build/**'
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
