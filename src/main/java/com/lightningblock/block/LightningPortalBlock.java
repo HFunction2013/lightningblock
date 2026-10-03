@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
 
@@ -244,7 +245,9 @@ public class LightningPortalBlock extends NetherPortalBlock {
         super.onPlace(state, level, pos, oldState, moved);
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             serverLevel.getPoiManager().add(pos,
-                    BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(PoiTypes.NETHER_PORTAL));
+                    ForgeRegistries.POI_TYPES.getHolder(PoiTypes.NETHER_PORTAL).orElseThrow(() -> 
+                    new IllegalStateException("NETHER_PORTAL POI doesn't exist!")
+                ));
         }
     }
 
@@ -265,7 +268,7 @@ public class LightningPortalBlock extends NetherPortalBlock {
      * own validator that accepts both obsidian and lightning ore.
      */
     @Override
-    public BlockState updateShape(@Nonnull BlockState state, Direction direction, @Nonnull BlockState neighborState,
+    public BlockState updateShape(@Nonnull BlockState state, @Nonnull Direction direction, @Nonnull BlockState neighborState,
     @Nonnull LevelAccessor level, @Nonnull BlockPos pos, @Nonnull BlockPos neighborPos) {
         Direction.Axis neighborAxis = direction.getAxis();
         Direction.Axis portalAxis = state.getValue(AXIS);
