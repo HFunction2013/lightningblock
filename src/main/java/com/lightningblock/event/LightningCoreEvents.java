@@ -4,6 +4,7 @@ import com.lightningblock.LightningBlockMod;
 import com.lightningblock.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -27,7 +28,7 @@ public class LightningCoreEvents {
     private static final double STRIKE_RADIUS = 10.0;
 
     /**
-     * While holding a Lightning Core, the player is immune to fire, lava,
+     * While holding a Lightning Core, the player is immune to fire,
      * explosion, and lightning damage.
      */
     @SubscribeEvent
@@ -36,16 +37,13 @@ public class LightningCoreEvents {
         if (!isHoldingCore(player)) return;
 
         DamageSource source = event.getSource();
-        String typeId = source.getMsgId();
 
-        boolean isFire = "inFire".equals(typeId)
-                || "lava".equals(typeId)
-                || "hotFloor".equals(typeId)
-                || "onFire".equals(typeId);
-        boolean isExplosion = "explosion".equals(typeId)
-                || "playerExplosion".equals(typeId)
-                || "badRespawnPoint".equals(typeId);
-        boolean isLightning = "lightningBolt".equals(typeId);
+        // Use damage type tags for fire and explosion (available in this version)
+        boolean isFire = source.is(DamageTypeTags.IS_FIRE);
+        boolean isExplosion = source.is(DamageTypeTags.IS_EXPLOSION);
+
+        // Lightning - use string check since IS_LIGHTNING_BOLT tag may not exist in this version
+        boolean isLightning = "lightningBolt".equals(source.getMsgId());
 
         if (isFire || isExplosion || isLightning) {
             event.setCanceled(true);
@@ -63,6 +61,12 @@ public class LightningCoreEvents {
         Level level = player.level();
         if (level.isClientSide()) return;
         if (!isHoldingCore(player)) return;
+
+        // Clear fire state for complete fire immunity
+        if (player.isOnFire()) {
+            player.clearFire();
+        }
+
         if (player.tickCount % STRIKE_INTERVAL_TICKS != 0) return;
 
         AABB area = AABB.ofSize(player.position(),
