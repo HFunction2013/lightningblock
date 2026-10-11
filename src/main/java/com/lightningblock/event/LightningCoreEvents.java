@@ -16,7 +16,8 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.LivingEntity;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LightningBlockMod.MOD_ID)
@@ -26,13 +27,31 @@ public class LightningCoreEvents {
     private static final double STRIKE_RADIUS = 10.0;
 
     /**
+     * @param mob    the mob to determine.
+     * @param player the current player.
+     * @return whether the mob is hostile to player..
+     */
+    private static boolean isHostileToPlayer(Mob mob, Player player) {
+        if (mob instanceof Enemy) {
+            return true;
+        }
+        LivingEntity target = mob.getTarget();
+        if (target == player) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * While holding a Lightning Core, the player is immune to fire,
      * explosion, and lightning damage.
      */
     @SubscribeEvent
     public static void onLivingAttack(LivingAttackEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-        if (!isHoldingCore(player)) return;
+        if (!(event.getEntity() instanceof Player player))
+            return;
+        if (!isHoldingCore(player))
+            return;
 
         DamageSource source = event.getSource();
 
@@ -40,7 +59,8 @@ public class LightningCoreEvents {
         boolean isFire = source.is(DamageTypeTags.IS_FIRE);
         boolean isExplosion = source.is(DamageTypeTags.IS_EXPLOSION);
 
-        // Lightning - use string check since IS_LIGHTNING_BOLT tag may not exist in this version
+        // Lightning - use string check since IS_LIGHTNING_BOLT tag may not exist in
+        // this version
         boolean isLightning = "lightningBolt".equals(source.getMsgId());
 
         if (isFire || isExplosion || isLightning) {
@@ -54,24 +74,30 @@ public class LightningCoreEvents {
      */
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
+        if (event.phase != TickEvent.Phase.END)
+            return;
         Player player = event.player;
         Level level = player.level();
-        if (level.isClientSide()) return;
-        if (!isHoldingCore(player)) return;
+        if (level.isClientSide())
+            return;
+        if (!isHoldingCore(player))
+            return;
 
         // Clear fire state for complete fire immunity
         if (player.isOnFire()) {
             player.clearFire();
         }
 
-        if (player.tickCount % STRIKE_INTERVAL_TICKS != 0) return;
+        if (player.tickCount % STRIKE_INTERVAL_TICKS != 0)
+            return;
 
         AABB area = AABB.ofSize(player.position(),
                 STRIKE_RADIUS * 2, STRIKE_RADIUS * 2, STRIKE_RADIUS * 2);
 
         List<Mob> hosts = level.getEntitiesOfClass(Mob.class, area,
-                m -> m.isAlive() && m.distanceTo(player) <= STRIKE_RADIUS);
+                m -> m.isAlive()
+                        && m.distanceTo(player) <= STRIKE_RADIUS
+                        && isHostileToPlayer(m, player));
 
         for (Mob host : hosts) {
             LightningBolt bolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
